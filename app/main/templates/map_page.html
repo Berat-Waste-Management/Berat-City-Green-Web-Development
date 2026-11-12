@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center">
+    <h1>Select a Laundry Location</h1>
+
+    <img src="{{ url_for('static', filename='img//laundry_map3.jpg') }}" alt="Laundry Map" id="my-map" usemap="#laundrymap">
+
+    <map name = "laundrymap" id="laundrymap">
+        {% set data = {} %}
+        {% for location in locations %}
+            {% set x = data.__setitem__(location.name, location) %}
+        {% endfor %}
+
+        <!-- Marston A -->
+        {% if 'Marston A' in data %}
+            <area onmouseover="getLocationData({{ data['Marston A'].id }})" onmouseout="toolHide()" shape="circle" coords="378, 84, 50" href="{{ url_for('main.location', location_id=data['Marston A'].id) }}" alt="Marston A">
+        {% endif %}
+
+        <!-- Marston B -->
+        {% if 'Marston B' in data %}
+            <area onmouseover="getLocationData({{ data['Marston B'].id }})" onmouseout="toolHide()" shape="circle" coords="538, 309, 50" href="{{ url_for('main.location', location_id=data['Marston B'].id) }}" alt="Marston B">
+        {% endif %}
+
+        <!-- West House -->
+        {% if 'West House' in data %}
+            <area onmouseover="getLocationData({{ data['West House'].id }})" onmouseout="toolHide()" shape="circle" coords="1294, 651, 50" href="{{ url_for('main.location', location_id=data['West House'].id) }}" alt="West House">
+        {% endif %}
+
+        <!-- Fruit House -->
+        {% if 'Fruit House' in data %}
+            <area onmouseover="getLocationData({{ data['Fruit House'].id }})" onmouseout="toolHide()" shape="circle" coords="658, 935, 50" href="{{ url_for('main.location', location_id=data['Fruit House'].id) }}" alt="Fruit House">
+        {% endif %}
+
+        <!-- William House -->
+        {% if 'William House' in data %}
+            <area onmouseover="getLocationData({{ data['William House'].id }})" onmouseout="toolHide()" shape="circle" coords="418, 433, 50" href="{{ url_for('main.location', location_id=data['William House'].id) }}" alt="William House">
+        {% endif %}
+
+        <!-- Sever House -->
+        {% if 'Sever House' in data %}
+            <area onmouseover="getLocationData({{ data['Sever House'].id }})" onmouseout="toolHide()" shape="circle" coords="180, 671, 50" href="{{ url_for('main.location', location_id=data['Sever House'].id) }}" alt="Sever House">
+        {% endif %}
+
+        <!-- Cedar A -->
+        {% if 'Cedar A' in data %}
+            <area onmouseover="getLocationData({{ data['Cedar A'].id }})" onmouseout="toolHide()" shape="circle" coords="931, 999, 50" href="{{ url_for('main.location', location_id=data['Cedar A'].id) }}" alt="Cedar A">
+        {% endif %}
+
+        <!-- Cedar B -->
+        {% if 'Cedar B' in data %}
+            <area onmouseover="getLocationData({{ data['Cedar B'].id }})" onmouseout="toolHide()" shape="circle" coords="816, 978, 50" href="{{ url_for('main.location', location_id=data['Cedar B'].id) }}" alt="Cedar B">
+        {% endif %}
+
+        <!-- Oak House -->
+        {% if 'Oak House' in data %}
+            <area onmouseover="getLocationData({{ data['Oak House'].id }})" onmouseout="toolHide()" shape="circle" coords="1542, 989, 50" href="{{ url_for('main.location', location_id=data['Oak House'].id) }}" alt="Oak House">
+        {% endif %}
+    </map>
+
+    <div id = "tooltip"></div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4 loc_list">
+        {% for location in locations %}
+        <div class="col">
+            <a href="{{ url_for('main.location', location_id=location.id) }}"
+               class="btn btn-primary w-100 py-3">
+                {{ location.name }}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="text-center mb-4">
+    {{ machine.type|capitalize }} #{{ machine.id }} Weekly Schedule
+</h2>
+
+<div class="text-center mb-3">
+    <a href="{{ url_for('main.location', location_id=machine.location_id) }}"
+       class="btn btn-primary">
+        Back to Location
+    </a>
+</div>
+
+<table class="calendar-table">
+    <tr>
+        <th>Time</th>
+        {% for d in days %}
+            <th>{{ d }}</th>
+        {% endfor %}
+    </tr>
+
+    {% for hour in range(7, 22) %}
+    <tr>
+        <td>{{ hour }}:00</td>
+
+        {% for day_index in range(7) %}
+            {% set reservation = calendar.get((day_index, hour)) %}
+
+            {% if reservation %}
+                {% if reservation.user_id == current_user.id %}
+                <td class = "green">
+                    <div class="calendar-btn green">
+                        Reserved
+                    </div>
+                </td>
+                {% else %}
+                <td class = "gray">
+                    <div class="calendar-btn gray">
+                        Reserved
+                    </div>
+                </td>
+                {% endif %}
+            {% else %}
+            <td>
+                <form method="POST">
+                    <input type="hidden" name="day" value="{{ day_index }}">
+                    <input type="hidden" name="hour" value="{{ hour }}">
+                    <button type="submit" class="calendar-btn">
+                    </button>
+                </form>
+            </td>
+            {% endif %}
+
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
+<h4 class="text-center mt-4">Your Reservations</h4>
+
+<div class="revs" style="margin:auto;">
+{% for r in reservations if r.user_id == current_user.id %}
+    <div style="display:flex; justify-content:space-between; margin:8px 0;">
+        <span>
+            {{ r.start_time.strftime("%A %I:%M %p") }}
+            -
+            {{ r.end_time.strftime("%I:%M %p") }}
+        </span>
+
+        <form method="POST"
+              action="{{ url_for('main.cancel_calendar_reservation',
+                                 reservation_id=r.id) }}">
+            <button class="btn btn-danger btn-sm">
+                Cancel
+            </button>
+        </form>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

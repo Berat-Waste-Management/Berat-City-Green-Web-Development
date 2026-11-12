@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center mt-4">Laundry Hub</h1>
+<h5 class="text-center">{{ subtitle }}</h5>
+
+<div class="mt-4 review-box">
+    {% if current_user.user_type == "Driver" %}
+        {% if location.bookings %}
+            <h2>Available Bulk Bookings for: {{ location.name }}</h2>
+            <div>
+                {% for booking in location.bookings %}
+                    {% include '_booking.html'%}
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No new bookings for {{ location.name }}.</p>
+        {% endif %}
+    {% endif %}
+    </div>
+
+<div class="row row-cols-1 row-cols-md-4 g-4 mt-4">
+
+  {% for machine in machines %}
+    {% include '_machine.html'%}
+  {% endfor %}
+
+    <div class="mt-4 review-box">
+
+        {% if not location.reviews %}
+            <div class ="review-header">
+                <p>No reviews yet for {{ location.name }}.</p>
+                <div class="text-center review-btn-div">
+                    <a class="btn btn-primary review-btn" href="{{ url_for('main.location_review', location_id=location.id) }}">Review {{ location.name }}</a>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class ="review-header mt-4">
+
+            {% if location.reviews %}
+                <h2 class="review-txt">Reviews for {{ location.name }}</h2>
+
+                <div class="text-center review-btn-div">
+                    <a class="review-btn btn btn-primary" href="{{ url_for('main.location_review', location_id=location.id) }}">Review {{ location.name }}</a>
+                </div>
+        </div>
+
+            <div class="reviews">
+                {% for r in location.reviews %}
+                    {% include '_review.html'%}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

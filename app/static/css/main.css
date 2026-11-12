@@ -1,0 +1,257 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin-bottom: 75px;
+}
+
+.navbar {
+    background-color: black !important;
+}
+
+.nav-link {
+    border: 1px solid #555 !important;
+    margin-right: 10px;
+    color: white !important;
+}
+
+.btn-primary {
+    background-color: #007bff !important;
+    border: none;
+    width: 200px;
+}
+
+/* Machine icon base style */
+.machine-icon {
+    width: 70px;
+    height: 70px;
+    transition: transform 0.6s ease, fill 0.4s ease;
+}
+
+/* Blue + spinning when in use */
+.machine-in-use {
+    fill: #0d6efd;  /* Bootstrap blue */
+    animation: spin 2s linear infinite;
+}
+
+/* Spin animation used by .machine-in-use */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+#my-map {
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    width: 100%;
+    margin-top: 25px;
+}
+
+#tooltip {
+    display: inline-block;
+    padding: 15px;
+    background: rgba(0,0,0,0.75);
+    border-radius: 5px;
+    color: white;
+    position: absolute;
+    display: none;
+}
+
+.review-btn-div {
+    width: 45%;
+}
+
+.review-btn {
+    float: right; 
+}
+
+.review-box {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.reviews {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.review-card {
+    padding: 10px;
+    width: 50%;
+}
+
+.review-txt {
+    margin-bottom: 15px;
+    width: 45%;
+}
+
+.report {
+    padding: 15px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hide-on-large {
+    display: none;
+}
+
+/* Machine card button alignment pls work*/
+.machine-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.machine-btns .btn {
+    width: 48%;
+}
+
+.revs {
+    width: 60%;
+}
+
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar-table th,
+.calendar-table td {
+    border: 1px solid #ccc;
+    text-align: center;
+    height: 45px;
+}
+
+.card-btn {
+    width: 48%;
+}
+
+
+.calendar-btn {
+    width: 100%;
+    height: 45px; 
+    border: none;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.green { background-color: #198754 !important; color: white; }
+.gray  { background-color: #6c757d !important; color: white; }
+
+@media screen and (min-width: 768px) {
+    #my-map {
+        display: inline;
+    }
+
+    .loc_list {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #my-map {
+        width: 75%;
+    }
+    
+}
+
+@media screen and (max-width: 992px) {
+    .resv-rpt-btns {
+        flex-direction: column;
+    }
+
+    .card-btn {
+        width: 100%;
+    }
+
+    .btn-success {
+        margin-bottom: 15px;
+    }
+
+    .nav-item {
+        margin-top: 10px;
+    }
+
+    .hide-on-large {
+        display: block;
+    }
+
+    .hide-on-small {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #my-map {
+        display: none;
+    }
+
+    .loc_list {
+        display: block;
+    }
+
+    .review-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .review-btn-div {
+        width: 100%;
+    }
+
+    .review-btn {
+        margin-bottom: 15px;
+        float: none;
+        width: 100%;
+    }
+
+    .review-txt {
+        width: 100%;
+        text-align: center;
+    }
+
+    .card-btn {
+        width: 48%;
+    }
+
+
+    .reviews {
+        flex-direction: column;
+    }
+    
+    .review-card {
+        width: 100%;
+    }
+
+    .resv-rpt-btns {
+        flex-direction: row;
+    }
+
+    .btn-success {
+        margin-bottom: 0;
+    }
+
+    .calendar-table {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .revs {
+        width: 100%;
+    }
+}
+

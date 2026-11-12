@@ -1,0 +1,76 @@
+
+    <div class="card mb-3 shadow-sm" id="booking-{{booking.id}}">
+        <div class="card-body">
+            <h5 class="card-title">Bulk Booking #{{booking.id}}</h5>
+
+                <p class="mb-1">
+                    <span class="fw-semibold text-primary">User:</span>
+                    {{ booking.user.username }}
+                </p>
+
+                <p class="mb-1">
+                    <span class="fw-semibold text-primary">Address:</span>
+                    {{ booking.user.address }}
+                </p>
+
+                <p class="mb-1">
+                    <span class="fw-semibold text-primary">Machine:</span>
+                    {{ booking.machine_type }}
+                </p>
+
+                <p class="mb-1">
+                    <span class="fw-semibold text-primary">Start Time:</span>
+                    {{ moment(booking.start_time).format('LLLL') }}
+                </p>
+                
+                {% set steps = booking.progress %}
+                {% set current_index = steps.index(booking.status) if booking.status in steps else 0 %}
+                {% set progress_percent = ((current_index + 1) / steps|length * 100) | round(0, 'floor') %}
+
+            {% if current_user.user_type == "Driver" %}
+                {% if not booking.driver_id %}
+                    <form method="POST" action="{{ url_for('main.claim_booking', booking_id=booking.id)}}">
+                        <button class="btn btn-outline-success">Select Booking </button>
+                    </form>
+                {% elif booking.driver_id == current_user.id and booking.status != "Delivering" %}
+                    <div class="progress my-2">
+                    <div class="progress-bar"
+                        role="progressbar"
+                        style="width: {{ progress_percent }}%;"
+                        aria-valuenow="{{ progress_percent }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100">
+                        {{ booking.status }}
+                    </div>
+                    </div>
+
+                    <form method="POST" action="{{ url_for('main.status_update', booking_id=booking.id)}}">
+                        <button class="btn btn-outline-success"> Update Tracking Status </button>
+                    </form>
+                {% elif booking.status == "Delivering" %}
+                    <form method="POST" action="{{ url_for('main.complete_delivery', booking_id=booking.id) }}">
+                        <button class="btn btn-success mt-2">Mark Order Complete</button>
+                    </form>   
+                {% else %}
+                    <form method="POST" action="{{ url_for('main.status_update', booking_id=booking.id)}}">
+                        <button class="btn btn-success" disabled> Claimed </button>
+                    </form>
+                {% endif %}
+            {% elif current_user.user_type == "User" %}
+                {% if booking.driver_id %}
+                        <div class="progress my-2">
+                        <div class="progress-bar"
+                            role="progressbar"
+                            style="width: {{ progress_percent }}%;"
+                            aria-valuenow="{{ progress_percent }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100">
+                            {{ booking.status }}
+                        </div>
+                        </div>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </div>    
+

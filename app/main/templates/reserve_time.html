@@ -1,0 +1,50 @@
+
+<!-- Iteration 2
+TO DO
+- TIMES: Fix reservation time selection flow
+    -> change from drop down to public schedule
+    -> if someone reserves from 8-9, ONLY that time slot should be blocked for other users, not the whole machine -->
+
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <h2 class="mt-4 text-center">
+        {{ machine.type }} #{{ machine.id }} Schedule
+    </h2>
+
+    <div class="row row-cols-1 row-cols-md-4 g-3 mt-4">
+
+        {% for slot in time_slots %}
+        <div class="col">
+            <div class="card text-center p-3">
+
+                <p>
+                    {{ slot.start.strftime("%I:%M %p") }}
+                    -
+                    {{ slot.end.strftime("%I:%M %p") }}
+                </p>
+
+                {% if slot.reserved %}
+                    <button class="btn btn-secondary w-100" disabled>
+                        Reserved
+                    </button>
+                {% else %}
+                    <form method="POST">
+                        <input type="hidden"
+                               name="start_time"
+                               value="{{ slot.start.isoformat() }}">
+                        <button class="btn btn-success w-100">
+                            Reserve
+                        </button>
+                    </form>
+                {% endif %}
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

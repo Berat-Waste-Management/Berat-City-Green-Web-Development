@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container text-center mt-5">
+
+    <h1>Select Your Collection Route</h1>
+
+    <p>Select the route you are currently working on.</p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+
+        {% for route in range(1, 4) %}
+
+        <div class="col">
+            <a href="{{ url_for('main.driver_route', route_number=route) }}"
+               class="btn btn-primary w-100 py-4">
+
+                Route {{ route }}
+
+            </a>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

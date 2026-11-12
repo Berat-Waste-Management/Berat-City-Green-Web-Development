@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% import "bootstrap_wtf.html" as wtf %}
+
+{% block content %}
+<div class="container">
+	<h2> <strong style="color:red; text-transform: uppercase;">{{ current_user.user_type }}</strong></h2>
+	
+	<div>		
+			{% if current_user.user_type == "Admin" %}
+				<hr>
+				<h5 class="card-title">Your Reports</h5>			
+				{% if reports %}
+					{% for r in reports %}
+						{% include '_report.html'%}
+					{% endfor %}
+				{% else %}
+					<p>No reports yet.</p>
+				{% endif %}
+			
+			{% elif current_user.user_type == "User" %}
+		<div class="card mt-3 p-2 shadow-sm">
+			<h5 class="card-title">Your Reservations</h5>
+				{% if reservations %}
+					{% for r in reservations %}
+						{% include '_reservations.html'%}
+					{% endfor %}
+				{% else %}
+					<p>No reservations yet.</p>
+				{% endif %}
+			<hr style="margin: 0; margin-bottom: 1rem;">
+			<h5 class="card-title">Your Bookings</h5>
+				{% if bulk_bookings %}
+					{% for booking in bulk_bookings %}
+						{% include '_booking.html'%}
+					{% endfor %}
+				{% else %}
+					<p>No bookings yet.</p>
+				{% endif %}
+
+			{% elif current_user.user_type == "Driver" %}
+				<h5 class="card-title">Your Deliveries</h5>
+				{% if bulk_bookings %}
+					{% for booking in bulk_bookings %}
+						{% include '_booking.html'%}
+					{% endfor %}
+				{% else %}
+					<p>No deliveries yet.</p>
+				{% endif %}
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}

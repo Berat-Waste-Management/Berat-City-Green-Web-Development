@@ -1,0 +1,43 @@
+<div class="card mb-3 shadow-sm" id="report-{{ r.id }}">
+  <div class="card-body">
+
+    <h5 class="card-title mb-3">
+      Report #{{ r.id }}
+    </h5>
+
+    <p class="mb-1">
+      <span class="fw-semibold text-primary">Location:</span>
+      {{ r.machine.location.name }}
+    </p>
+
+    <p class="mb-1">
+      <span class="fw-semibold text-primary">Machine:</span>
+      {{ r.machine.type }} #{{ r.machine.id }}
+    </p>
+
+    <p class="mb-1">
+      <span class="fw-semibold text-primary">Current status:</span>
+      {{ r.machine.status }}
+    </p>
+
+    <p class="mb-3">
+      <span class="fw-semibold text-primary">Reason:</span>
+      {{ r.reason }}
+    </p>
+
+    <div class="d-flex flex-column gap-2">
+      <form method="POST" action="{{ url_for('main.disable_machine', machine_id=r.machine.id) }}">
+        <button type="submit" class="btn btn-sm btn-outline-danger w-100">
+          Disable Machine
+        </button>
+      </form>
+
+      <form method="POST" action="{{ url_for('main.report_resolve', report_id=r.id) }}">
+        <button type="submit" class="btn btn-sm btn-outline-success w-100">
+          Mark as Resolved
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
