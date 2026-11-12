@@ -203,3 +203,8 @@ class Reservation(db.Model):
         return f"{self.get_machine_location()}: {self.machine.type} #{self.machine_id} from {self.start_time} to {self.end_time}"
     def get_machine_location(self):
         return self.machine.get_location()
+
+# class Truck(db.Model):
+#     id = db.Integer(primary_key=True)
+#     truck_number = db.Integer(unique=True, nullable=False)
+#     license_plate = db.Column(db.String(20), unique=True, nullable=True) # Added field

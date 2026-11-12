@@ -41,6 +41,9 @@
             <li class="nav-item">
               <a class="nav-link border border-secondary rounded px-3 mx-1 text-white" href="{{ url_for('main.profile') }}">Profile</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link border border-secondary rounded px-3 mx-1 text-white" href="{{ url_for('main.daily_sorting_form') }}">Sorting Form</a>
+            </li>
             {% if location %}
               <li class="nav-item hide-on-large">
                 <a class="nav-link border border-secondary rounded px-3 mx-1 text-white" href="{{ url_for('main.reserve_bulk', location_id=location.id) }}">Bulk Laundry Reserve</a>

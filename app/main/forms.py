@@ -33,3 +33,6 @@ class ReviewForm(FlaskForm):
     submit = SubmitField('Submit Review')
 
 
+# class TruckLicensePlateForm(FlaskForm):
+#     license_plate = StringField('License Plate Number', validators=[DataRequired(), Length(min=2, max=20)])
+#     submit = SubmitField('Save License Plate')

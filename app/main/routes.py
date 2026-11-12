@@ -518,3 +518,51 @@ def driver_route(route_number):
         "driver_route_form.html",
         route_number=route_number
     )
+
+
+
+# from app.main.forms import TruckLicensePlateForm
+# from app.main.models import Truck
+
+# @bp_main.route('/admin/sorting_form/truck_<int:truck_number>', methods=['GET', 'POST'])
+# @login_required
+# def driver_route(truck_number): # Note: Python doesn't allow duplicate function names, so make sure this is named distinctly if you have another 'driver_route' function!
+#     if current_user.user_type != "Admin":
+#         abort(403)
+    
+#     if truck_number not in range(1, 8):
+#         abort(404)
+
+#     # Find the truck or create it if it doesn't exist yet
+#     truck = db.session.scalar(sqla.select(Truck).where(Truck.truck_number == truck_number))
+    
+#     form = TruckLicensePlateForm()
+    
+#     if form.validate_on_submit():
+#         if not truck:
+#             truck = Truck(truck_number=truck_number)
+#             db.session.add(truck)
+        
+#         truck.license_plate = form.license_plate.data
+#         db.session.commit()
+        
+#         flash(f"License plate for Truck #{truck_number} updated successfully!", "success")
+#         return redirect(url_for('main.driver_route', truck_number=truck_number))
+    
+#     # Pre-populate the form if a license plate is already saved
+#     if truck and not form.license_plate.data:
+#         form.license_plate.data = truck.license_plate
+
+#     return render_template(
+#         "admin_sorting_center_form.html",
+#         truck_number=truck_number,
+#         form=form,
+#         truck=truck
+#     )
+
+
+@bp_main.route('/daily-sorting-form')
+@login_required
+def daily_sorting_form():
+    return render_template('admin_sorting_center_form.html', title='Daily Sorting Form')
+
